@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src *  data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';"
-    />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Your application</title>
@@ -13,41 +9,36 @@
     <script type="systemjs-importmap">
       {
         "imports": {
-          "demo": "http://localhost:8083/main.js",
-          "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.5/system/single-spa.min.js"
+          "demo": "http://localhost:4201/demo/main.js",
+          "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@4.4.1/lib/system/single-spa.min.js"
         }
       }
     </script>
     <link
       rel="preload"
-      href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.5/system/single-spa.min.js"
+      href="https://cdn.jsdelivr.net/npm/single-spa@4.4.1/lib/system/single-spa.min.js"
       as="script"
       crossorigin="anonymous"
     />
-    <script src="https://unpkg.com/core-js-bundle@3.1.4/minified.js"></script>
-    <script src="https://unpkg.com/zone.js"></script>
-    <script src="https://unpkg.com/import-map-overrides@1.6.0/dist/import-map-overrides.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/system.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/amd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/named-exports.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/named-register.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/zone.js/dist/zone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@1.10.1/dist/import-map-overrides.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.1.9/dist/system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.1.9/dist/extras/amd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.1.9/dist/extras/named-exports.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.1.9/dist/extras/named-register.min.js"></script>
   </head>
   <body>
     <script>
       System.import("single-spa").then(function(singleSpa) {
         singleSpa.registerApplication(
           "demo",
-          function() {
-            return System.import("demo");
-          },
-          function(location) {
-            return location.pathname.startsWith("/");
-          }
+          () => System.import("demo"),
+          location => location.pathname.startsWith("/")
         );
-
         singleSpa.start();
       });
     </script>
+    <!-- See https://github.com/joeldenning/import-map-overrides#user-interface  -->
     <demo></demo>
     <import-map-overrides-full></import-map-overrides-full>
   </body>
